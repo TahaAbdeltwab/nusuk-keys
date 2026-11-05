@@ -23,7 +23,6 @@
 </script>
 
 <style>
-  /* ====== الألوان: وضع فاتح (افتراضي) ====== */
   :root{
     --bg:#f4f3ee;
     --surface:#ffffff;
@@ -44,7 +43,6 @@
     color-scheme:light;
   }
 
-  /* ====== الألوان: وضع داكن ====== */
   [data-theme="dark"]{
     --bg:#0d0f13;
     --surface:#161922;
@@ -84,10 +82,12 @@
   .top{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:20px}
   .brand{display:flex; align-items:center; gap:12px; min-width:0}
   .logo{
-    width:42px; height:42px; flex-shrink:0; border-radius:12px; display:grid; place-items:center;
-    background:var(--accent); color:var(--accent-ink); font-family:var(--mono); font-weight:600; font-size:18px;
-    box-shadow:0 8px 20px -10px var(--accent);
+    width:46px; height:46px; flex-shrink:0; border-radius:14px; display:grid; place-items:center;
+    background:var(--accent); box-shadow:0 10px 24px -12px var(--accent);
   }
+  .logo svg{width:26px; height:26px}
+  .logo .key-stroke{stroke:var(--accent-ink)}
+  .logo .key-fill{fill:var(--accent-ink)}
   h1{font-size:18px; font-weight:700; margin:0; letter-spacing:-.2px}
   .sub{margin:2px 0 0; font-size:12px; color:var(--muted); line-height:1.5}
   .theme-btn{
@@ -291,7 +291,13 @@
 <div class="wrap">
   <header class="top">
     <div class="brand">
-      <div class="logo">N</div>
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+          <circle class="key-stroke" cx="11" cy="16" r="5.5"/>
+          <path class="key-stroke" d="M16.5 16H27M23.5 16v4.5M27 16v3"/>
+          <circle class="key-fill" cx="11" cy="16" r="1.6" stroke="none"/>
+        </svg>
+      </div>
       <div>
         <h1>مفاتيح تحدي نسك</h1>
         <p class="sub">افتح الكود في نسك بضغطة، وشارك كودك مع الناس</p>
@@ -475,7 +481,7 @@ function toast(text, type = "ok") {
   t.textContent = text;
   t.className = "toast " + type + " show";
   clearTimeout(t._timer);
-  t._timer = setTimeout(() => t.classList.remove("show"), 2200);
+  t._timer = setTimeout(() => t.classList.remove("show"), 2600);
 }
 
 function showAddMsg(text, type) {
@@ -518,20 +524,33 @@ function scramble(el, text) {
   }, 28);
 }
 
+// النسخ بالطريقة القديمة الأول، لأنها بتشتغل فورًا جوه ضغطة الزرار (مهم للموبايل)
+function legacyCopy(text) {
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.setAttribute("readonly", "");
+  ta.style.position = "fixed";
+  ta.style.top = "0";
+  ta.style.left = "0";
+  ta.style.opacity = "0";
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  ta.setSelectionRange(0, text.length);
+  let ok = false;
+  try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+  ta.remove();
+  return ok;
+}
+
+// بنجرب الطريقتين. الأولى فورية، والتانية للمتصفحات الحديثة
 async function copyText(text) {
+  if (legacyCopy(text)) return true;
   try {
     await navigator.clipboard.writeText(text);
     return true;
   } catch (e) {
-    const ta = document.createElement("textarea");
-    ta.value = text;
-    ta.style.position = "fixed";
-    ta.style.opacity = "0";
-    document.body.appendChild(ta);
-    ta.select();
-    const ok = document.execCommand("copy");
-    ta.remove();
-    return ok;
+    return false;
   }
 }
 
@@ -549,10 +568,15 @@ function flashButton(btn, text) {
   btn._flash = setTimeout(() => { btn.textContent = old; }, 1400);
 }
 
-// نفتح الرابط الأول (عشان المتصفح ماينعش الفتح)، وبعدين ننسخ
+// ننسخ الأول وهو لسه جوه ضغطة الزرار، وبعدين نفتح التطبيق
 function openCode(k) {
+  const ok = legacyCopy(k.code);
   window.open(nusukLink(k.code), "_blank");
-  copyKey(k);
+  if (ok) {
+    toast("اتنسخ الكود، الصقه في نسك ✓");
+  } else {
+    copyText(k.code).then(done => toast(done ? "اتنسخ الكود، الصقه في نسك ✓" : "انسخ الكود يدويًا", done ? "ok" : "info"));
+  }
 }
 
 // يخفي الكود للزائر ده بس، ويفعّل الزراير تاني بعد ما الكود الجديد يظهر
