@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>مفاتيح تحدي نسك</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#070d1a; --card:rgba(255,255,255,.04); --border:rgba(255,255,255,.09);
+    --accent:#2ee6b8; --accent2:#7c8cff; --gold:#f7c15c;
+    --text:#eef4ff; --muted:#8a9bbb; --danger:#ff7a7a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    font-family:'Cairo',system-ui,sans-serif; color:var(--text); background:var(--bg);
+    min-height:100vh; overflow-x:hidden; padding:40px 16px 60px; position:relative;
+  }
+  .bg{position:fixed; inset:0; z-index:-1; overflow:hidden}
+  .blob{position:absolute; border-radius:50%; filter:blur(90px); opacity:.45; animation:float 14s ease-in-out infinite}
+  .b1{width:420px;height:420px;background:#2b4dff;top:-120px;right:-100px}
+  .b2{width:360px;height:360px;background:#14b8a6;bottom:-120px;left:-80px;animation-delay:-5s}
+  .b3{width:260px;height:260px;background:#f59e0b;top:40%;left:40%;opacity:.2;animation-delay:-9s}
+  @keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-40px) scale(1.08)}}
+
+  .wrap{max-width:620px;margin:0 auto}
+  .hero{text-align:center;margin-bottom:30px;animation:rise .8s both}
+  .badge{
+    display:inline-block; font-size:13px; padding:6px 14px; border-radius:99px; margin-bottom:16px;
+    background:rgba(46,230,184,.1); color:var(--accent); border:1px solid rgba(46,230,184,.3);
+  }
+  h1{
+    font-size:36px; font-weight:800; margin:0 0 10px; color:transparent;
+    background:linear-gradient(90deg,#fff,var(--accent),#7c8cff); background-size:200% auto;
+    -webkit-background-clip:text; background-clip:text; animation:shine 6s linear infinite;
+  }
+  @keyframes shine{to{background-position:200% center}}
+  .sub{color:var(--muted); line-height:1.9; margin:0; font-size:15px}
+
+  .glass{
+    background:var(--card); border:1px solid var(--border); border-radius:20px; padding:22px;
+    backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+    box-shadow:0 20px 60px rgba(0,0,0,.35); margin-bottom:18px; animation:rise .8s both;
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+
+  .section-title{display:flex; justify-content:space-between; align-items:center; margin:0 0 16px; font-size:18px; font-weight:700}
+  .counter{font-size:14px; color:var(--muted); background:rgba(255,255,255,.06); padding:4px 12px; border-radius:99px}
+  .counter b{color:var(--accent); font-size:16px; display:inline-block; transition:transform .3s}
+  .counter b.pop{transform:scale(1.35)}
+
+  .list{list-style:none; margin:0; padding:0 4px 0 0; display:grid; gap:10px; max-height:380px; overflow-y:auto}
+  .item{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    background:rgba(10,18,34,.7); border:1px solid var(--border); border-radius:14px;
+    padding:12px 14px; direction:ltr; font-family:ui-monospace,Consolas,monospace; font-size:16px;
+    animation:slideIn .45s both; transition:transform .2s, border-color .2s, box-shadow .2s;
+  }
+  .item:hover{transform:translateX(-4px); border-color:rgba(46,230,184,.45); box-shadow:0 0 0 3px rgba(46,230,184,.08)}
+  .item.pinned{border-color:rgba(247,193,92,.6); box-shadow:0 0 0 3px rgba(247,193,92,.08)}
+  .item.leaving{animation:leave .4s forwards}
+  @keyframes slideIn{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:none}}
+  @keyframes leave{to{opacity:0;transform:translateX(50px) scale(.94)}}
+  .code{word-break:break-all; flex:1; min-width:0}
+  .pin{font-size:14px; flex-shrink:0}
+  .actions{display:flex; gap:8px; flex-shrink:0}
+
+  .btn{
+    font-family:inherit; font-weight:700; font-size:15px; border:none; border-radius:12px;
+    padding:12px 20px; cursor:pointer; transition:transform .15s, filter .2s, opacity .2s; white-space:nowrap;
+  }
+  .btn:active{transform:scale(.96)}
+  .btn:disabled{opacity:.5; cursor:not-allowed}
+  .btn-main{background:linear-gradient(135deg,var(--accent),#27b8ff); color:#04221a; box-shadow:0 8px 24px rgba(46,230,184,.25)}
+  .btn-main:hover:not(:disabled){filter:brightness(1.1); transform:translateY(-1px)}
+  .copy{
+    background:transparent; color:var(--accent); border:1px solid rgba(46,230,184,.5);
+    padding:8px 14px; font-size:14px; border-radius:10px;
+  }
+  .copy:hover:not(:disabled){background:rgba(46,230,184,.12)}
+  .next{
+    background:transparent; color:var(--gold); border:1px solid rgba(247,193,92,.5);
+    padding:8px 14px; font-size:14px; border-radius:10px;
+  }
+  .next:hover:not(:disabled){background:rgba(247,193,92,.12)}
+
+  .row{display:flex; gap:10px}
+  input{
+    flex:1; min-width:0; font-family:inherit; font-size:15px; padding:13px 14px; border-radius:12px;
+    border:1px solid var(--border); background:rgba(5,10,20,.7); color:var(--text);
+    direction:ltr; text-align:left; transition:box-shadow .25s, border-color .25s;
+  }
+  input:focus{outline:none; border-color:var(--accent); box-shadow:0 0 0 4px rgba(46,230,184,.15)}
+
+  .empty{text-align:center; padding:30px 10px; color:var(--muted); line-height:1.9}
+  .orb{
+    width:56px; height:56px; margin:0 auto 14px; border-radius:50%;
+    background:radial-gradient(circle,var(--accent),transparent 70%); animation:pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{transform:scale(.85);opacity:.5}50%{transform:scale(1.15);opacity:1}}
+  .hidden{display:none !important}
+
+  .toast{
+    position:fixed; bottom:24px; left:50%; transform:translate(-50%,120px); opacity:0;
+    background:#0d1830; border:1px solid var(--border); border-radius:14px; padding:12px 20px;
+    font-size:14px; box-shadow:0 12px 40px rgba(0,0,0,.5); transition:transform .4s cubic-bezier(.2,.9,.3,1.2), opacity .3s; z-index:10;
+  }
+  .toast.show{transform:translate(-50%,0); opacity:1}
+  .toast.ok{border-color:rgba(46,230,184,.5); color:var(--accent)}
+  .toast.err{border-color:rgba(255,122,122,.5); color:var(--danger)}
+  .toast.info{border-color:rgba(247,193,92,.5); color:var(--gold)}
+
+  .msg{margin-top:12px; font-size:14px; min-height:20px; line-height:1.7}
+  .msg.ok{color:var(--accent)} .msg.err{color:var(--danger)} .msg.info{color:var(--gold)}
+  .foot{text-align:center; color:var(--muted); font-size:13px; margin-top:10px}
+</style>
+</head>
+<body>
+<div class="bg"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+
+<div class="wrap">
+  <header class="hero">
+    <span class="badge">مجاني · بضغطة واحدة</span>
+    <h1>مفاتيح تحدي نسك</h1>
+    <p class="sub">انسخ مفتاح من القايمة وجربه، وضيف مفتاحك عشان الناس تستفيد بيه.</p>
+  </header>
+
+  <section class="glass hidden" id="slotSection">
+    <div class="section-title"><span>المفتاح الحالي</span></div>
+    <div id="slot"></div>
+  </section>
+
+  <section class="glass hidden" id="listSection">
+    <div class="section-title">
+      <span>باقي المفاتيح</span>
+      <span class="counter"><b id="count">0</b> مفتاح</span>
+    </div>
+    <ul class="list" id="list"></ul>
+  </section>
+
+  <div class="empty hidden" id="empty">
+    <div class="orb"></div>
+    خلصت المفاتيح اللي موجودة ليك.<br>استنى شوية لحد ما مفاتيح جديدة تتضاف.
+  </div>
+
+  <section class="glass">
+    <div class="section-title"><span>ضيف مفتاحك</span></div>
+    <div class="row">
+      <input id="newKey" placeholder="اكتب المفتاح هنا" autocomplete="off">
+      <button class="btn btn-main" id="addBtn">إضافة</button>
+    </div>
+    <div id="addMsg" class="msg"></div>
+  </section>
+
+  <p class="foot">كل مفتاح بتنسخه بيختفي من قايمتك بس، ويفضل ظاهر للناس اللي لسه ماأخدوهوش.</p>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const SUPABASE_URL = "https://vkpeyfnynqkkafsrsmcw.supabase.co";
+const SUPABASE_KEY = "sb_publishable_wiJVOBakkMgpmJe2NqUl9Q_kH3EBeFo";
+
+let visitorId;
+try {
+  visitorId = localStorage.getItem("nusuk_visitor");
+  if (!visitorId) {
+    visitorId = crypto.randomUUID();
+    localStorage.setItem("nusuk_visitor", visitorId);
+  }
+} catch (e) {
+  visitorId = crypto.randomUUID();
+}
+
+let keys = [];
+let seenIds = new Set();
+let lastSig = null;
+let busy = false;
+
+async function api(path, options = {}) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
+    ...options,
+    headers: {
+      apikey: SUPABASE_KEY,
+      "Content-Type": "application/json",
+      ...(options.headers || {})
+    }
+  });
+  if (!res.ok) {
+    const err = new Error("request failed");
+    err.status = res.status;
+    throw err;
+  }
+  const text = await res.text();
+  return text ? JSON.parse(text) : null;
+}
+
+function toast(text, type = "ok") {
+  const t = document.getElementById("toast");
+  t.textContent = text;
+  t.className = "toast " + type + " show";
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove("show"), 2200);
+}
+
+function showAddMsg(text, type) {
+  const el = document.getElementById("addMsg");
+  el.className = "msg " + (type || "");
+  el.textContent = text;
+}
+
+async function markSeen(keyId) {
+  try {
+    await api("seen_keys", {
+      method: "POST",
+      headers: { Prefer: "return=minimal" },
+      body: JSON.stringify({ visitor_id: visitorId, key_id: keyId })
+    });
+  } catch (e) {
+    if (e.status !== 409) throw e; // 409 يعني الزائر شافه قبل كده، مش مشكلة
+  }
+}
+
+// المفتاح المثبت يجي الأول، والباقي بالترتيب. اللي ماشافهوش الزائر بس هو اللي بيظهر
+function visibleKeys() {
+  return keys
+    .filter(k => !seenIds.has(k.id))
+    .sort((a, b) => (Number(b.is_pinned) - Number(a.is_pinned)) || (a.id - b.id));
+}
+
+async function refresh() {
+  try {
+    const [allKeys, seen] = await Promise.all([
+      api("keys?select=id,code,is_pinned&order=id.asc"),
+      api(`seen_keys?visitor_id=eq.${visitorId}&select=key_id`)
+    ]);
+    keys = allKeys;
+    seenIds = new Set(seen.map(s => s.key_id));
+    render();
+  } catch (e) {
+    toast("مش قادر أوصل للمفاتيح دلوقتي", "err");
+  }
+}
+
+function makeCode(text) {
