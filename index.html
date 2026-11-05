@@ -30,7 +30,6 @@
     -webkit-font-smoothing:antialiased;
   }
 
-  /* خلفية: شبكة خطوط دقيقة + توهج خفيف من فوق */
   .bg{position:fixed; inset:0; z-index:-1; pointer-events:none}
   .bg::before{
     content:""; position:absolute; inset:0;
@@ -46,7 +45,6 @@
 
   .wrap{max-width:480px; margin:0 auto}
 
-  /* الهيدر */
   .top{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:26px}
   .brand-row{display:flex; gap:14px; align-items:center}
   .mark{
@@ -62,7 +60,6 @@
   .pulse{width:6px; height:6px; border-radius:50%; background:var(--acc); animation:blink 2s steps(2,start) infinite}
   @keyframes blink{to{visibility:hidden}}
 
-  /* الإحصائيات كشريط */
   .stats{
     display:grid; grid-template-columns:repeat(3,1fr); border:1px solid var(--line); border-radius:14px;
     background:var(--s1); margin-bottom:22px; overflow:hidden;
@@ -72,7 +69,6 @@
   .stat b{display:block; font-family:var(--mono); font-size:22px; font-weight:600; font-variant-numeric:tabular-nums}
   .stat span{font-size:11.5px; color:var(--muted)}
 
-  /* التبويبات بخط تحت */
   .tabs{display:flex; gap:22px; border-bottom:1px solid var(--line); margin-bottom:22px}
   .tab{
     position:relative; background:none; border:0; padding:10px 0; cursor:pointer;
@@ -82,17 +78,14 @@
   .tab.active{color:var(--text)}
   .tab.active::after{content:""; position:absolute; inset-inline:0; bottom:-1px; height:2px; background:var(--acc)}
 
-  /* عناوين الأقسام بأرقام */
   .label{display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:.5px; margin-bottom:14px}
   .label::after{content:""; flex:1; height:1px; background:var(--line)}
   .label b{color:var(--acc); font-weight:600}
 
-  /* الحركة الداخلة */
   .fade{opacity:0; animation:up .7s var(--ease) forwards}
   .d1{animation-delay:.08s} .d2{animation-delay:.16s} .d3{animation-delay:.24s}
   @keyframes up{from{opacity:0; transform:translateY(14px)}to{opacity:1; transform:none}}
 
-  /* بطاقة الكود الحالي */
   .hero{background:var(--s1); border:1px solid var(--line); border-radius:18px; padding:20px; margin-bottom:28px}
   .hero-top{display:flex; justify-content:space-between; align-items:center; font-size:12px; color:var(--muted); margin-bottom:14px}
   .tag{font-family:var(--mono); font-size:11px; color:var(--warn)}
@@ -134,12 +127,10 @@
   .link-btn:hover:not(:disabled){opacity:.75}
   .link-btn:disabled{opacity:.4; cursor:not-allowed}
 
-  /* الخطوات كقايمة مرقمة */
   .steps{list-style:none; margin:0 0 28px; padding:0; border-top:1px solid var(--line)}
   .steps li{display:grid; grid-template-columns:40px 1fr; gap:6px; padding:12px 2px; border-bottom:1px solid var(--line); font-size:13px; color:var(--muted); line-height:1.7}
   .steps li span{font-family:var(--mono); color:var(--acc); font-size:12px; padding-top:2px}
 
-  /* البحث */
   .search{
     width:100%; font-family:inherit; font-size:14px; color:var(--text); background:transparent;
     border:0; border-bottom:1px solid var(--line2); padding:12px 2px; margin-bottom:14px; transition:border-color .3s;
@@ -147,7 +138,6 @@
   .search::placeholder{color:#55555f}
   .search:focus{outline:none; border-bottom-color:var(--acc)}
 
-  /* القايمة كجدول */
   .list{list-style:none; margin:0; padding:0; border-top:1px solid var(--line)}
   .row{
     display:grid; grid-template-columns:34px 1fr auto; align-items:center; gap:10px;
@@ -159,6 +149,7 @@
   @keyframes out{to{opacity:0; transform:translateX(-18px)}}
   .idx{font-family:var(--mono); font-size:11px; color:var(--muted)}
   .row-code{font-family:var(--mono); direction:ltr; text-align:left; font-size:14px; word-break:break-all; color:#dcdce6}
+  .actions{display:flex; gap:6px}
   .btn-ghost{
     font-family:inherit; font-size:12px; font-weight:600; padding:7px 12px; border-radius:8px; cursor:pointer;
     background:transparent; color:var(--text); border:1px solid var(--line2); transition:all .2s;
@@ -167,7 +158,6 @@
   .btn-ghost:disabled{opacity:.4; cursor:not-allowed}
   .no-result{color:var(--muted); font-size:13px; padding:16px 2px}
 
-  /* أضف أكوادك */
   .panel-title{font-size:18px; font-weight:700; margin:0 0 6px}
   .panel-sub{font-size:12.5px; color:var(--muted); line-height:1.9; margin:0 0 16px}
   .textarea{
@@ -183,14 +173,14 @@
   .msg{margin-top:12px; font-size:12.5px; min-height:18px; line-height:1.7}
   .msg.ok{color:var(--acc)} .msg.err{color:var(--err)} .msg.info{color:var(--warn)}
 
-  /* حالة فاضية */
   .empty{text-align:center; padding:40px 10px; color:var(--muted); line-height:2; font-size:13.5px}
   .cursor{display:inline-block; font-family:var(--mono); color:var(--acc); animation:blink 1s steps(2,start) infinite; margin-inline-start:4px}
 
   .hidden{display:none !important}
   .foot{font-family:var(--mono); text-align:center; color:#56566a; font-size:11px; margin-top:20px; line-height:1.9}
+  .store{color:var(--acc); text-decoration:none; border-bottom:1px dashed rgba(200,242,61,.5)}
+  .store:hover{border-bottom-style:solid}
 
-  /* إشعار */
   .toast{
     position:fixed; bottom:20px; left:50%; transform:translate(-50%,120px); opacity:0;
     background:var(--s2); border:1px solid var(--line2); border-radius:10px; padding:11px 16px;
@@ -216,7 +206,7 @@
       <div class="mark">N</div>
       <div>
         <h1>مفاتيح تحدي نسك</h1>
-        <p>انسخ الكود وافتحه في تطبيق نسك، وشارك كودك مع الناس.</p>
+        <p>افتح الكود في تطبيق نسك بضغطة واحدة، وشارك كودك مع الناس.</p>
       </div>
     </div>
     <div class="status"><span class="pulse"></span>متصل</div>
@@ -233,7 +223,6 @@
     <button class="tab" id="tabAdd">أضف أكوادك</button>
   </nav>
 
-  <!-- تبويب كل الأكواد -->
   <div id="panelAll">
     <section class="hero hidden" id="hero">
       <div class="hero-top">
@@ -256,8 +245,8 @@
     </section>
 
     <ol class="steps fade d2">
-      <li><span>01</span>افتح تطبيق نسك وسيبه شغال في الخلفية.</li>
-      <li><span>02</span>اضغط "افتح في نسك"، والكود بيتنسخ تلقائيًا.</li>
+      <li><span>01</span>اضغط "افتح في نسك"، والتطبيق بيفتح الكود على طول.</li>
+      <li><span>02</span>الكود بيتنسخ تلقائيًا، فلو التطبيق مش متثبت حمّله من الرابط تحت.</li>
       <li><span>03</span>لو محتاج كود تاني ارجع هنا، هتلاقي اللي بعده جاهز.</li>
     </ol>
 
@@ -277,7 +266,6 @@
     </div>
   </div>
 
-  <!-- تبويب أضف أكوادك -->
   <div id="panelAdd" class="hidden">
     <h2 class="panel-title">أضف أكوادك</h2>
     <p class="panel-sub">الصق كود واحد، أو كذا كود، أو روابط كاملة. كل كود في سطر لوحده، أو مفصول بمسافة أو فاصلة.</p>
@@ -287,7 +275,10 @@
     <div class="msg" id="addMsg"></div>
   </div>
 
-  <p class="foot">كل كود بتنسخه بيختفي من قايمتك بس، ويفضل ظاهر للناس اللي لسه ماأخدوهوش.</p>
+  <p class="foot">
+    كل كود بتفتحه أو تنسخه بيختفي من قايمتك بس، ويفضل ظاهر للناس اللي لسه ماأخدوهوش.<br>
+    <a class="store" href="https://play.google.com/store/apps/details?id=com.moh.nusukapp&hl=ar" target="_blank" rel="noopener">حمّل تطبيق نسك من Google Play</a>
+  </p>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -295,7 +286,9 @@
 <script>
 const SUPABASE_URL = "https://vkpeyfnynqkkafsrsmcw.supabase.co";
 const SUPABASE_KEY = "sb_publishable_wiJVOBakkMgpmJe2NqUl9Q_kH3EBeFo";
-const NUSUK_URL = "https://www.nusuk.sa/"; // غيّر الرابط ده للرابط الصح
+
+// رابط فتح الكود في التطبيق، والكود بيتحط فيه تلقائي
+const nusukLink = code => `https://services.nusuk.sa/app?p=27&id=${encodeURIComponent(code)}`;
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -354,7 +347,6 @@ function showAddMsg(text, type) {
   el.textContent = text;
 }
 
-// عدّ الأرقام بحركة هادية
 function countTo(el, to) {
   const from = Number(el.dataset.v || 0);
   el.dataset.v = to;
@@ -370,7 +362,6 @@ function countTo(el, to) {
   requestAnimationFrame(step);
 }
 
-// تأثير "فك التشفير" لظهور الكود
 function scramble(el, text) {
   if (reduceMotion) { el.textContent = text; return; }
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -398,11 +389,10 @@ async function markSeen(keyId) {
       body: JSON.stringify({ visitor_id: visitorId, key_id: keyId })
     });
   } catch (e) {
-    if (e.status !== 409) throw e; // 409 يعني الزائر شافه قبل كده
+    if (e.status !== 409) throw e;
   }
 }
 
-// المثبت يجي الأول، والباقي بالترتيب. اللي الزائر ماخلصوش بس هو اللي بيظهر
 function visibleKeys() {
   return keys
     .filter(k => !seenIds.has(k.id))
@@ -454,13 +444,12 @@ function flashButton(btn, text) {
   btn._flash = setTimeout(() => { btn.textContent = old; }, 1400);
 }
 
-async function openKey() {
-  if (!currentSlot) return;
-  await copyKey(currentSlot);
-  window.open(NUSUK_URL, "_blank");
+// نفتح الرابط الأول على طول (عشان المتصفح ماينعش الفتح)، وبعدين ننسخ
+function openCode(k) {
+  window.open(nusukLink(k.code), "_blank");
+  copyKey(k);
 }
 
-// يخفي الكود للزائر ده بس
 async function hideKey(k, el, buttons) {
   if (busy) return;
   busy = true;
@@ -491,15 +480,29 @@ function buildRow(k, i) {
   code.className = "row-code";
   code.textContent = k.code;
 
-  const btn = document.createElement("button");
-  btn.className = "btn-ghost";
-  btn.textContent = "نسخ";
-  btn.addEventListener("click", async () => {
+  const copyBtn = document.createElement("button");
+  copyBtn.className = "btn-ghost";
+  copyBtn.textContent = "نسخ";
+
+  const openBtn = document.createElement("button");
+  openBtn.className = "btn-ghost";
+  openBtn.textContent = "افتح";
+
+  copyBtn.addEventListener("click", async () => {
     await copyKey(k);
-    hideKey(k, li, [btn]);
+    hideKey(k, li, [copyBtn, openBtn]);
   });
 
-  li.append(idx, code, btn);
+  openBtn.addEventListener("click", () => {
+    openCode(k);
+    hideKey(k, li, [copyBtn, openBtn]);
+  });
+
+  const actions = document.createElement("div");
+  actions.className = "actions";
+  actions.append(copyBtn, openBtn);
+
+  li.append(idx, code, actions);
   return li;
 }
 
@@ -617,7 +620,11 @@ $("heroCopy").addEventListener("click", async () => {
   const ok = await copyKey(currentSlot);
   if (ok) flashButton($("heroCopy"), "تم النسخ ✓");
 });
-$("heroOpen").addEventListener("click", openKey);
+
+$("heroOpen").addEventListener("click", () => {
+  if (currentSlot) openCode(currentSlot);
+});
+
 $("heroNext").addEventListener("click", () => {
   if (currentSlot) hideKey(currentSlot, $("hero"), [$("heroCopy"), $("heroOpen"), $("heroNext")]);
 });
@@ -636,7 +643,7 @@ $("newKeys").addEventListener("input", e => {
 $("addBtn").addEventListener("click", addCodes);
 
 refresh();
-setInterval(refresh, 30000); // تحديث تلقائي كل 30 ثانية
+setInterval(refresh, 30000);
 </script>
 </body>
 </html>
