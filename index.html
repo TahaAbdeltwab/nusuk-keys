@@ -4,156 +4,191 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>مفاتيح تحدي نسك</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#070d1a; --card:rgba(255,255,255,.04); --border:rgba(255,255,255,.09);
-    --accent:#2ee6b8; --accent2:#7c8cff; --gold:#f7c15c;
-    --text:#eef4ff; --muted:#8a9bbb; --danger:#ff7a7a;
+    --bg:#0b1020; --panel:#131a31; --panel2:#1a2340; --line:rgba(255,255,255,.08);
+    --accent:#8b8cff; --accent2:#5ee7c6; --gold:#f7c15c;
+    --text:#eef2ff; --muted:#8f9bc0; --danger:#ff7a7a;
   }
   *{box-sizing:border-box}
   html,body{margin:0}
   body{
     font-family:'Cairo',system-ui,sans-serif; color:var(--text); background:var(--bg);
-    min-height:100vh; overflow-x:hidden; padding:40px 16px 60px; position:relative;
+    min-height:100vh; padding:24px 14px 40px; position:relative; overflow-x:hidden;
   }
   .bg{position:fixed; inset:0; z-index:-1; overflow:hidden}
-  .blob{position:absolute; border-radius:50%; filter:blur(90px); opacity:.45; animation:float 14s ease-in-out infinite}
-  .b1{width:420px;height:420px;background:#2b4dff;top:-120px;right:-100px}
-  .b2{width:360px;height:360px;background:#14b8a6;bottom:-120px;left:-80px;animation-delay:-5s}
-  .b3{width:260px;height:260px;background:#f59e0b;top:40%;left:40%;opacity:.2;animation-delay:-9s}
-  @keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-40px) scale(1.08)}}
+  .blob{position:absolute; border-radius:50%; filter:blur(90px); opacity:.35}
+  .b1{width:380px;height:380px;background:#4f46e5;top:-140px;right:-120px}
+  .b2{width:300px;height:300px;background:#14b8a6;bottom:-120px;left:-100px}
 
-  .wrap{max-width:620px;margin:0 auto}
-  .hero{text-align:center;margin-bottom:30px;animation:rise .8s both}
-  .badge{
-    display:inline-block; font-size:13px; padding:6px 14px; border-radius:99px; margin-bottom:16px;
-    background:rgba(46,230,184,.1); color:var(--accent); border:1px solid rgba(46,230,184,.3);
+  .wrap{max-width:460px; margin:0 auto}
+
+  header{text-align:center; margin-bottom:18px}
+  .brand{font-size:26px; font-weight:800; margin:0 0 6px; color:var(--accent)}
+  .tagline{margin:0; font-size:13px; color:var(--muted); line-height:1.8}
+
+  .stats{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:16px}
+  .stat{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:10px 6px; text-align:center}
+  .stat b{display:block; font-size:18px; color:var(--accent2)}
+  .stat span{font-size:12px; color:var(--muted)}
+
+  .card{
+    background:var(--panel); border:1px solid var(--line); border-radius:22px; padding:18px;
+    box-shadow:0 20px 50px rgba(0,0,0,.3); margin-bottom:16px; animation:rise .6s both;
   }
-  h1{
-    font-size:36px; font-weight:800; margin:0 0 10px; color:transparent;
-    background:linear-gradient(90deg,#fff,var(--accent),#7c8cff); background-size:200% auto;
-    -webkit-background-clip:text; background-clip:text; animation:shine 6s linear infinite;
+  @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+  /* الكود الحالي */
+  .hero{text-align:center; transition:opacity .4s, transform .4s}
+  .hero.leaving{opacity:0; transform:scale(.96)}
+  .hint{font-size:12px; color:var(--muted); margin-bottom:10px}
+  .source{font-size:12px; color:var(--gold); margin-top:4px; min-height:16px}
+  .code-box{
+    font-family:ui-monospace,Consolas,monospace; font-size:30px; font-weight:700; letter-spacing:1px;
+    direction:ltr; word-break:break-all; background:var(--panel2); border-radius:16px;
+    padding:18px 12px; margin:12px 0; color:#fff;
   }
-  @keyframes shine{to{background-position:200% center}}
-  .sub{color:var(--muted); line-height:1.9; margin:0; font-size:15px}
-
-  .glass{
-    background:var(--card); border:1px solid var(--border); border-radius:20px; padding:22px;
-    backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
-    box-shadow:0 20px 60px rgba(0,0,0,.35); margin-bottom:18px; animation:rise .8s both;
-  }
-  @keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
-
-  .section-title{display:flex; justify-content:space-between; align-items:center; margin:0 0 16px; font-size:18px; font-weight:700}
-  .counter{font-size:14px; color:var(--muted); background:rgba(255,255,255,.06); padding:4px 12px; border-radius:99px}
-  .counter b{color:var(--accent); font-size:16px; display:inline-block; transition:transform .3s}
-  .counter b.pop{transform:scale(1.35)}
-
-  .list{list-style:none; margin:0; padding:0 4px 0 0; display:grid; gap:10px; max-height:380px; overflow-y:auto}
-  .item{
-    display:flex; align-items:center; justify-content:space-between; gap:12px;
-    background:rgba(10,18,34,.7); border:1px solid var(--border); border-radius:14px;
-    padding:12px 14px; direction:ltr; font-family:ui-monospace,Consolas,monospace; font-size:16px;
-    animation:slideIn .45s both; transition:transform .2s, border-color .2s, box-shadow .2s;
-  }
-  .item:hover{transform:translateX(-4px); border-color:rgba(46,230,184,.45); box-shadow:0 0 0 3px rgba(46,230,184,.08)}
-  .item.pinned{border-color:rgba(247,193,92,.6); box-shadow:0 0 0 3px rgba(247,193,92,.08)}
-  .item.leaving{animation:leave .4s forwards}
-  @keyframes slideIn{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:none}}
-  @keyframes leave{to{opacity:0;transform:translateX(50px) scale(.94)}}
-  .code{word-break:break-all; flex:1; min-width:0}
-  .pin{font-size:14px; flex-shrink:0}
-  .actions{display:flex; gap:8px; flex-shrink:0}
-
+  .hero-actions{display:grid; grid-template-columns:auto 1fr; gap:10px; margin-bottom:10px}
   .btn{
-    font-family:inherit; font-weight:700; font-size:15px; border:none; border-radius:12px;
-    padding:12px 20px; cursor:pointer; transition:transform .15s, filter .2s, opacity .2s; white-space:nowrap;
+    font-family:inherit; font-weight:700; font-size:14px; border:none; border-radius:14px;
+    padding:12px 14px; cursor:pointer; transition:transform .15s, filter .2s, opacity .2s; white-space:nowrap;
   }
-  .btn:active{transform:scale(.96)}
+  .btn:active{transform:scale(.97)}
   .btn:disabled{opacity:.5; cursor:not-allowed}
-  .btn-main{background:linear-gradient(135deg,var(--accent),#27b8ff); color:#04221a; box-shadow:0 8px 24px rgba(46,230,184,.25)}
-  .btn-main:hover:not(:disabled){filter:brightness(1.1); transform:translateY(-1px)}
-  .copy{
-    background:transparent; color:var(--accent); border:1px solid rgba(46,230,184,.5);
-    padding:8px 14px; font-size:14px; border-radius:10px;
-  }
-  .copy:hover:not(:disabled){background:rgba(46,230,184,.12)}
-  .next{
-    background:transparent; color:var(--gold); border:1px solid rgba(247,193,92,.5);
-    padding:8px 14px; font-size:14px; border-radius:10px;
-  }
-  .next:hover:not(:disabled){background:rgba(247,193,92,.12)}
+  .btn-ghost{background:transparent; color:var(--accent); border:1px solid rgba(139,140,255,.5)}
+  .btn-ghost:hover:not(:disabled){background:rgba(139,140,255,.12)}
+  .btn-main{background:var(--accent); color:#fff; box-shadow:0 8px 22px rgba(139,140,255,.3)}
+  .btn-main:hover:not(:disabled){filter:brightness(1.08)}
+  .btn-next{width:100%; background:transparent; color:var(--gold); border:1px solid rgba(247,193,92,.5)}
+  .btn-next:hover:not(:disabled){background:rgba(247,193,92,.1)}
+  .meta{display:flex; justify-content:space-between; font-size:12px; color:var(--muted); margin-top:4px}
 
-  .row{display:flex; gap:10px}
-  input{
-    flex:1; min-width:0; font-family:inherit; font-size:15px; padding:13px 14px; border-radius:12px;
-    border:1px solid var(--border); background:rgba(5,10,20,.7); color:var(--text);
-    direction:ltr; text-align:left; transition:box-shadow .25s, border-color .25s;
+  /* الخطوات */
+  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:16px}
+  .step{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:12px 10px; font-size:12px; line-height:1.7; color:var(--muted)}
+  .step i{display:inline-block; font-style:normal; width:22px; height:22px; line-height:22px; border-radius:50%;
+    background:rgba(139,140,255,.2); color:var(--accent); text-align:center; margin-bottom:6px; font-weight:700}
+
+  /* التبويبات */
+  .tabs{display:grid; grid-template-columns:1fr 1fr; background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:4px; margin-bottom:16px}
+  .tab{font-family:inherit; font-weight:700; font-size:14px; background:transparent; color:var(--muted); border:none; border-radius:10px; padding:10px; cursor:pointer}
+  .tab.active{background:var(--accent); color:#fff}
+
+  /* البحث والقايمة */
+  .search{
+    width:100%; font-family:inherit; font-size:14px; padding:12px 14px; border-radius:14px;
+    background:var(--panel); border:1px solid var(--line); color:var(--text); margin-bottom:12px;
   }
-  input:focus{outline:none; border-color:var(--accent); box-shadow:0 0 0 4px rgba(46,230,184,.15)}
+  .search:focus, .textarea:focus{outline:none; border-color:var(--accent)}
+  .list{list-style:none; margin:0; padding:0; display:grid; gap:8px}
+  .row-item{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:12px;
+    animation:slideIn .4s both;
+  }
+  .row-item.leaving{animation:leave .4s forwards}
+  @keyframes slideIn{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
+  @keyframes leave{to{opacity:0;transform:translateX(40px)}}
+  .row-code{font-family:ui-monospace,Consolas,monospace; direction:ltr; word-break:break-all; font-size:15px; flex:1; min-width:0}
+  .btn-small{font-family:inherit; font-weight:700; font-size:13px; padding:8px 14px; border-radius:10px; border:1px solid rgba(139,140,255,.5); background:transparent; color:var(--accent); cursor:pointer}
+  .btn-small:disabled{opacity:.5}
+  .no-result{text-align:center; color:var(--muted); font-size:13px; padding:12px}
+
+  /* أضف أكوادك */
+  .add-title{font-size:18px; font-weight:700; margin:0 0 6px}
+  .add-sub{font-size:13px; color:var(--muted); line-height:1.8; margin:0 0 12px}
+  .textarea{
+    width:100%; min-height:150px; resize:vertical; font-family:ui-monospace,Consolas,monospace; font-size:14px;
+    background:var(--panel2); border:1px solid var(--line); color:var(--text); border-radius:14px; padding:12px; direction:ltr; text-align:left;
+  }
+  .btn-block{width:100%; margin-top:12px}
+  .msg{margin-top:10px; font-size:13px; min-height:18px; line-height:1.7; text-align:center}
+  .msg.ok{color:var(--accent2)} .msg.err{color:var(--danger)} .msg.info{color:var(--gold)}
 
   .empty{text-align:center; padding:30px 10px; color:var(--muted); line-height:1.9}
-  .orb{
-    width:56px; height:56px; margin:0 auto 14px; border-radius:50%;
-    background:radial-gradient(circle,var(--accent),transparent 70%); animation:pulse 2s ease-in-out infinite;
-  }
+  .orb{width:50px;height:50px;margin:0 auto 12px;border-radius:50%;background:radial-gradient(circle,var(--accent),transparent 70%);animation:pulse 2s ease-in-out infinite}
   @keyframes pulse{0%,100%{transform:scale(.85);opacity:.5}50%{transform:scale(1.15);opacity:1}}
   .hidden{display:none !important}
 
+  .foot{text-align:center; color:var(--muted); font-size:12px; margin-top:12px; line-height:1.8}
+
   .toast{
-    position:fixed; bottom:24px; left:50%; transform:translate(-50%,120px); opacity:0;
-    background:#0d1830; border:1px solid var(--border); border-radius:14px; padding:12px 20px;
-    font-size:14px; box-shadow:0 12px 40px rgba(0,0,0,.5); transition:transform .4s cubic-bezier(.2,.9,.3,1.2), opacity .3s; z-index:10;
+    position:fixed; bottom:20px; left:50%; transform:translate(-50%,120px); opacity:0;
+    background:#0f1730; border:1px solid var(--line); border-radius:14px; padding:12px 18px;
+    font-size:14px; box-shadow:0 12px 40px rgba(0,0,0,.5); transition:transform .4s, opacity .3s; z-index:10; white-space:nowrap;
   }
   .toast.show{transform:translate(-50%,0); opacity:1}
-  .toast.ok{border-color:rgba(46,230,184,.5); color:var(--accent)}
+  .toast.ok{border-color:rgba(94,231,198,.5); color:var(--accent2)}
   .toast.err{border-color:rgba(255,122,122,.5); color:var(--danger)}
   .toast.info{border-color:rgba(247,193,92,.5); color:var(--gold)}
-
-  .msg{margin-top:12px; font-size:14px; min-height:20px; line-height:1.7}
-  .msg.ok{color:var(--accent)} .msg.err{color:var(--danger)} .msg.info{color:var(--gold)}
-  .foot{text-align:center; color:var(--muted); font-size:13px; margin-top:10px}
 </style>
 </head>
 <body>
-<div class="bg"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+<div class="bg"><div class="blob b1"></div><div class="blob b2"></div></div>
 
 <div class="wrap">
-  <header class="hero">
-    <span class="badge">مجاني · بضغطة واحدة</span>
-    <h1>مفاتيح تحدي نسك</h1>
-    <p class="sub">انسخ مفتاح من القايمة وجربه، وضيف مفتاحك عشان الناس تستفيد بيه.</p>
+  <header>
+    <h1 class="brand">مفاتيح تحدي نسك</h1>
+    <p class="tagline">انسخ الكود وافتحه في تطبيق نسك، وشارك كودك مع الناس.</p>
   </header>
 
-  <section class="glass hidden" id="slotSection">
-    <div class="section-title"><span>المفتاح الحالي</span></div>
-    <div id="slot"></div>
-  </section>
-
-  <section class="glass hidden" id="listSection">
-    <div class="section-title">
-      <span>باقي المفاتيح</span>
-      <span class="counter"><b id="count">0</b> مفتاح</span>
-    </div>
-    <ul class="list" id="list"></ul>
-  </section>
-
-  <div class="empty hidden" id="empty">
-    <div class="orb"></div>
-    خلصت المفاتيح اللي موجودة ليك.<br>استنى شوية لحد ما مفاتيح جديدة تتضاف.
+  <div class="stats">
+    <div class="stat"><b id="statTotal">0</b><span>إجمالي الأكواد</span></div>
+    <div class="stat"><b id="statAdded">0</b><span>أضفتهم أنت</span></div>
+    <div class="stat"><b id="statAvail">0</b><span>متاحة لك</span></div>
   </div>
 
-  <section class="glass">
-    <div class="section-title"><span>ضيف مفتاحك</span></div>
-    <div class="row">
-      <input id="newKey" placeholder="اكتب المفتاح هنا" autocomplete="off">
-      <button class="btn btn-main" id="addBtn">إضافة</button>
-    </div>
-    <div id="addMsg" class="msg"></div>
-  </section>
+  <div class="tabs">
+    <button class="tab active" id="tabAll">كل الأكواد</button>
+    <button class="tab" id="tabAdd">أضف أكوادك</button>
+  </div>
 
-  <p class="foot">كل مفتاح بتنسخه بيختفي من قايمتك بس، ويفضل ظاهر للناس اللي لسه ماأخدوهوش.</p>
+  <!-- تبويب كل الأكواد -->
+  <div id="panelAll">
+    <section class="card hero hidden" id="hero">
+      <div class="hint">استخدم الكود ده في نسك</div>
+      <div class="source" id="heroSource"></div>
+      <div class="code-box" id="heroCode"></div>
+      <div class="hero-actions">
+        <button class="btn btn-ghost" id="heroCopy">نسخ</button>
+        <button class="btn btn-main" id="heroOpen">افتح الكود في نسك</button>
+      </div>
+      <button class="btn btn-next" id="heroNext">كود جديد</button>
+      <div class="meta"><span id="heroLeft"></span><span>من المجتمع</span></div>
+    </section>
+
+    <div class="steps">
+      <div class="step"><i>١</i><br>افتح تطبيق نسك وسيبه شغال في الخلفية</div>
+      <div class="step"><i>٢</i><br>اضغط الزرار والكود هيتفتح في نسك</div>
+      <div class="step"><i>٣</i><br>ارجع هنا لو محتاج كود تاني، هتلاقي اللي بعده جاهز</div>
+    </div>
+
+    <input class="search" id="search" placeholder="دوّر على كود..." autocomplete="off">
+
+    <section class="card hidden" id="listBox">
+      <ul class="list" id="list"></ul>
+      <div class="no-result hidden" id="noResult">مفيش كود بالاسم ده</div>
+    </section>
+
+    <div class="empty hidden" id="empty">
+      <div class="orb"></div>
+      خلصت الأكواد اللي موجودة ليك.<br>استنى شوية لحد ما أكواد جديدة تتضاف، أو ضيف كودك من تبويب "أضف أكوادك".
+    </div>
+  </div>
+
+  <!-- تبويب أضف أكوادك -->
+  <div id="panelAdd" class="hidden">
+    <section class="card">
+      <h2 class="add-title">أضف أكوادك</h2>
+      <p class="add-sub">الصق كود واحد، أو كذا كود، أو روابط كاملة. كل كود في سطر لوحده، أو مفصول بمسافة أو فاصلة.</p>
+      <textarea class="textarea" id="newKeys" placeholder="NG-AbC12xYz&#10;NG-9QwExT55"></textarea>
+      <button class="btn btn-main btn-block" id="addBtn">أضف الأكواد</button>
+      <div class="msg" id="addMsg"></div>
+    </section>
+  </div>
+
+  <p class="foot">كل كود بتنسخه بيختفي من قايمتك بس، ويفضل ظاهر للناس اللي لسه ماأخدوهوش.</p>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -161,6 +196,7 @@
 <script>
 const SUPABASE_URL = "https://vkpeyfnynqkkafsrsmcw.supabase.co";
 const SUPABASE_KEY = "sb_publishable_wiJVOBakkMgpmJe2NqUl9Q_kH3EBeFo";
+const NUSUK_URL = "https://www.nusuk.sa/"; // غيّر الرابط ده للرابط الصح
 
 let visitorId;
 try {
@@ -173,10 +209,17 @@ try {
   visitorId = crypto.randomUUID();
 }
 
+let addedIds = [];
+try { addedIds = JSON.parse(localStorage.getItem("nusuk_added") || "[]"); } catch (e) { addedIds = []; }
+
 let keys = [];
 let seenIds = new Set();
 let lastSig = null;
 let busy = false;
+let searchTerm = "";
+let currentSlot = null;
+
+const $ = id => document.getElementById(id);
 
 async function api(path, options = {}) {
   const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
@@ -197,7 +240,7 @@ async function api(path, options = {}) {
 }
 
 function toast(text, type = "ok") {
-  const t = document.getElementById("toast");
+  const t = $("toast");
   t.textContent = text;
   t.className = "toast " + type + " show";
   clearTimeout(t._timer);
@@ -205,7 +248,7 @@ function toast(text, type = "ok") {
 }
 
 function showAddMsg(text, type) {
-  const el = document.getElementById("addMsg");
+  const el = $("addMsg");
   el.className = "msg " + (type || "");
   el.textContent = text;
 }
@@ -218,11 +261,11 @@ async function markSeen(keyId) {
       body: JSON.stringify({ visitor_id: visitorId, key_id: keyId })
     });
   } catch (e) {
-    if (e.status !== 409) throw e; // 409 يعني الزائر شافه قبل كده، مش مشكلة
+    if (e.status !== 409) throw e; // 409 يعني الزائر شافه قبل كده
   }
 }
 
-// المفتاح المثبت يجي الأول، والباقي بالترتيب. اللي ماشافهوش الزائر بس هو اللي بيظهر
+// المثبت يجي الأول، والباقي بالترتيب. اللي الزائر ماخلصوش بس هو اللي بيظهر
 function visibleKeys() {
   return keys
     .filter(k => !seenIds.has(k.id))
@@ -239,8 +282,192 @@ async function refresh() {
     seenIds = new Set(seen.map(s => s.key_id));
     render();
   } catch (e) {
-    toast("مش قادر أوصل للمفاتيح دلوقتي", "err");
+    toast("مش قادر أوصل للأكواد دلوقتي", "err");
   }
 }
 
-function makeCode(text) {
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch (e) {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand("copy");
+    ta.remove();
+    return ok;
+  }
+}
+
+async function copyKey(k) {
+  const ok = await copyText(k.code);
+  toast(ok ? "تم نسخ الكود ✓" : "انسخ الكود يدويًا", ok ? "ok" : "info");
+}
+
+async function openKey() {
+  if (!currentSlot) return;
+  await copyKey(currentSlot);
+  window.open(NUSUK_URL, "_blank");
+}
+
+// يخفي الكود للزائر ده بس، والعنصر بيعمل حركة الاختفاء
+async function hideKey(k, el, buttons) {
+  if (busy) return;
+  busy = true;
+  buttons.forEach(b => b.disabled = true);
+  try {
+    await markSeen(k.id);
+    seenIds.add(k.id);
+    el.classList.add("leaving");
+    setTimeout(render, 400);
+  } catch (e) {
+    buttons.forEach(b => b.disabled = false);
+    toast("حصلت مشكلة، جرب تاني", "err");
+  } finally {
+    busy = false;
+  }
+}
+
+function buildItem(k, i) {
+  const li = document.createElement("li");
+  li.className = "row-item";
+  li.style.animationDelay = (i * 0.05) + "s";
+
+  const code = document.createElement("span");
+  code.className = "row-code";
+  code.textContent = k.code;
+
+  const btn = document.createElement("button");
+  btn.className = "btn-small";
+  btn.textContent = "نسخ";
+  btn.addEventListener("click", async () => {
+    await copyKey(k);
+    hideKey(k, li, [btn]);
+  });
+
+  li.append(code, btn);
+  return li;
+}
+
+function render() {
+  const visible = visibleKeys();
+  const slot = visible[0] || null;
+  currentSlot = slot;
+
+  const term = searchTerm.trim().toLowerCase();
+  const rest = visible.slice(1).filter(k => !term || k.code.toLowerCase().includes(term));
+
+  $("statTotal").textContent = keys.length;
+  $("statAdded").textContent = addedIds.length;
+  $("statAvail").textContent = visible.length;
+
+  const sig = (slot ? slot.id : "none") + "|" + rest.map(k => k.id).join(",");
+  if (sig === lastSig) return;
+  lastSig = sig;
+
+  const hero = $("hero");
+  const listBox = $("listBox");
+  const list = $("list");
+  const empty = $("empty");
+  const noResult = $("noResult");
+
+  if (!slot) {
+    hero.classList.add("hidden");
+    listBox.classList.add("hidden");
+    empty.classList.remove("hidden");
+    return;
+  }
+
+  empty.classList.add("hidden");
+  hero.classList.remove("hidden", "leaving");
+  $("heroCode").textContent = slot.code;
+  $("heroSource").textContent = slot.is_pinned ? "كود صاحب المبادرة" : "";
+  $("heroLeft").textContent = "فاضل " + visible.length + " كود";
+
+  list.innerHTML = "";
+  if (visible.length <= 1) {
+    listBox.classList.add("hidden");
+  } else {
+    listBox.classList.remove("hidden");
+    rest.forEach((k, i) => list.append(buildItem(k, i)));
+    noResult.classList.toggle("hidden", rest.length > 0);
+  }
+}
+
+async function addCodes() {
+  const input = $("newKeys");
+  const btn = $("addBtn");
+  const tokens = [...new Set(
+    input.value.split(/[\s,;،]+/).map(t => t.trim()).filter(Boolean)
+  )];
+
+  if (tokens.length === 0) {
+    showAddMsg("اكتب كود واحد على الأقل.", "err");
+    return;
+  }
+
+  btn.disabled = true;
+  let added = 0, duplicate = 0, failed = 0;
+
+  for (const code of tokens) {
+    if (code.length > 500) { failed++; continue; }
+    try {
+      const inserted = await api("keys?select=id,code,is_pinned", {
+        method: "POST",
+        headers: { Prefer: "return=representation" },
+        body: JSON.stringify({ code })
+      });
+      const id = inserted[0].id;
+      await markSeen(id);
+      addedIds.push(id);
+      added++;
+    } catch (e) {
+      if (e.status === 409) duplicate++;
+      else failed++;
+    }
+  }
+
+  localStorage.setItem("nusuk_added", JSON.stringify(addedIds));
+  input.value = "";
+
+  let text = `تم إضافة ${added} كود`;
+  if (duplicate) text += `، و${duplicate} كان موجود قبل كده`;
+  if (failed) text += `، و${failed} ماتضافوش، جرب تاني`;
+  showAddMsg(text, failed ? "err" : "ok");
+  toast("تم الإضافة ✓");
+
+  btn.disabled = false;
+  await refresh();
+}
+
+function setTab(name) {
+  const isAll = name === "all";
+  $("tabAll").classList.toggle("active", isAll);
+  $("tabAdd").classList.toggle("active", !isAll);
+  $("panelAll").classList.toggle("hidden", !isAll);
+  $("panelAdd").classList.toggle("hidden", isAll);
+}
+
+$("tabAll").addEventListener("click", () => setTab("all"));
+$("tabAdd").addEventListener("click", () => setTab("add"));
+$("heroCopy").addEventListener("click", () => currentSlot && copyKey(currentSlot));
+$("heroOpen").addEventListener("click", openKey);
+$("heroNext").addEventListener("click", () => {
+  if (currentSlot) hideKey(currentSlot, $("hero"), [$("heroCopy"), $("heroOpen"), $("heroNext")]);
+});
+$("search").addEventListener("input", e => {
+  searchTerm = e.target.value;
+  lastSig = null;
+  render();
+});
+$("addBtn").addEventListener("click", addCodes);
+
+refresh();
+setInterval(refresh, 30000); // تحديث تلقائي كل 30 ثانية
+</script>
+</body>
+</html>
